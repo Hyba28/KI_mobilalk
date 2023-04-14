@@ -1,0 +1,4 @@
+<resources>
+
+    <style name="Theme.KI_mobilalk" parent="@style/Theme.Leanback" />
+</resources>
