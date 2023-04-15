@@ -3,4 +3,16 @@
     <string name="login">Bejelentkezés</string>
     <string name="signup">Regisztráció</string>
     <string name="appnametext">Gázóraállás Lejelentő Applikáció</string>
+    <string name="regisztracio">Regisztráció</string>
+    <string name="felhsznalonev">Felhasználónév</string>
+    <string name="nev">Név</string>
+    <string name="applypass">Jelsző megerősítése</string>
+    <string name="name">Teljes név</string>
+    <string name="jelszo">Jelszó</string>
+    <string name="email">Email-cím</string>
+    <string name="username">Felhasználónév</string>
+    <string name="vissza">Vissza</string>
+    <string name="bejelentkezes">Bejelentkezés</string>
+    <string name="email_c_m">Email cím</string>
+    <string name="jelsz">Jelszó</string>
 </resources>
