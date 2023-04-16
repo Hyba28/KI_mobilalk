@@ -1,19 +1,28 @@
 package com.example.ki_mobilalk;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 public class UserDAO {
 
@@ -33,41 +42,115 @@ public class UserDAO {
     }
 
     public void add(FirebaseUser firebaseUser, String realName, String nickName, FirestoreCallback firestoreCallback) {
-        User user = new User(firebaseUser.getUid(), nickName, realName, new ArrayList<>());
+        User user = new User(firebaseUser.getUid(), nickName, realName);
         db.document(firebaseUser.getUid()).set(user);
         firestoreCallback.onCallbackOne(user);
     }
 
-    public void get(FirebaseUser user, String realName, String nickName, FirestoreCallback firestoreCallback) {
+    public void getValue(FirebaseUser user, final Callback<Integer> callback) {
+        DocumentReference docRef = db.document(user.getUid());
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        int value = Objects.requireNonNull(document.getLong("value")).intValue();
+                        Log.d(LOG_TAG, "Value: " + value);
+                        callback.onSuccess(value);
+                    } else {
+                        Log.d(LOG_TAG, "No such document");
+                    }
+                } else {
+                    Log.d(LOG_TAG, "get failed with ", task.getException());
+                }
+            }
+        });
+    }
+
+    public void getDate(FirebaseUser user, Callback<String> callback) {
         DocumentReference docRef = db.document(user.getUid());
         docRef.get().addOnCompleteListener(task -> {
-            if (task.isSuccessful() && task.getResult().exists()) {
-                firestoreCallback.onCallbackOne(task.getResult().toObject(User.class));
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    String date = document.getString("dictateDate");
+                    callback.onSuccess(date);
+                } else {
+                    callback.onFailure(new Exception("No such document"));
+                }
             } else {
-                add(user,realName, nickName, firestoreCallback);
+                callback.onFailure(task.getException());
             }
         });
     }
 
-    public void getAll(FirestoreCallback firestoreCallback) {
-        List<User> users = new ArrayList<>();
-        db.orderBy("realName").get().addOnCompleteListener(task -> {
-            for (QueryDocumentSnapshot ref : task.getResult()) {
-                users.add(ref.toObject(User.class));
-            }
-            firestoreCallback.onCallbackMore(users);
-        });
-    }
+
 
     public void delete(String uid, Context context) {
-        db.document(uid).delete().addOnCompleteListener(task -> Toast.makeText(context, "User sikeresen törölve.", Toast.LENGTH_LONG).show());
+        db.document(uid).delete().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                Toast.makeText(context, "User sikeresen törölve.", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(context, "Hiba történt a felhasználó törlésekor.", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
-    public void update(FirebaseUser firebaseUser, String field, String value) {
-           if(!field.equals("uid")) {
-               db.document(firebaseUser.getUid()).update(field, value);
-           }
+    public void updateValue(FirebaseUser user, int value, final Callback<Void> callback) {
+        getValue(user, new Callback<Integer>() {
+            @Override
+            public void onSuccess(Integer result) {
+                if (value >= result) {
+                    DocumentReference docRef = db.document(user.getUid());
+                    docRef.update("value", value)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d(LOG_TAG, "Value updated successfully.");
+                                    callback.onSuccess(null);
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w(LOG_TAG, "Error updating value", e);
+                                    callback.onFailure(e);
+                                }
+                            });
+                } else {
+                    Toast.makeText(context.getApplicationContext(), "A megadott érték kisebb, mint az előző érték! Nem lehet visszatekerni!", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                // hiba kezelése
+            }
+        });
     }
+    public void updateDate(FirebaseUser user, String date, final Callback<Void> callback) {
+        DocumentReference docRef = db.document(user.getUid());
+        Map<String, Object> updates = new HashMap<>();
+        updates.put("dictateDate", date);
+        docRef.update(updates)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(LOG_TAG, "DocumentSnapshot successfully updated!");
+                        callback.onSuccess(null);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(LOG_TAG, "Error updating document", e);
+                        callback.onFailure(e);
+                    }
+                });
+    }
+
+
 
 }
 

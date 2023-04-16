@@ -32,7 +32,7 @@
             android:name=".ListGasMeterActivity"
             android:exported="false" />
         <activity
-            android:name=".EditUserActivity"
+            android:name=".DictateGasActivity"
             android:exported="false" />
         <activity
             android:name=".ChooseActivity"

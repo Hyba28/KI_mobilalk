@@ -72,7 +72,7 @@ public class RegisterActivity extends AppCompatActivity {
                        if(task.isSuccessful()){
                            Log.d(LOG_TAG, "Sikeres regisztacio!");
                            FirebaseUser firebaseUser = mAuth.getCurrentUser();
-                           User user = new User(firebaseUser.getUid(),nickName.getText().toString(), realName.getText().toString(), new ArrayList<>());
+                           User user = new User(firebaseUser.getUid(),nickName.getText().toString(), realName.getText().toString());
                            userDAO.add(user)
                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
                                        @Override
@@ -92,7 +92,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                        }else{
                         Log.w(LOG_TAG, "hiba tortent a regisztracio soran...");
-                        Toast.makeText(this, "Valami hiba történt!:(", Toast.LENGTH_LONG).show();
+                        Toast.makeText(this, "Valami hiba történt!:( (talán rövid a jelszó /használatban lévő email cím)", Toast.LENGTH_LONG).show();
                        }
                     });
         }else {

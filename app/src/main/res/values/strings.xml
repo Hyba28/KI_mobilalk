@@ -15,4 +15,23 @@
     <string name="bejelentkezes">Bejelentkezés</string>
     <string name="email_c_m">Email cím</string>
     <string name="jelsz">Jelszó</string>
+    <string name="sikeresen_bejelentkezt_l">Sikeresen bejelentkeztél!</string>
+    <string name="v_laszz_az_al_bbiak_k_z_l">Válaszz az alábbiak közül</string>
+    <string name="valassz">Válassz az alábbi műveletek közül:</string>
+    <string name="felhaszn_l_t_rl_se">Felhasználó törlése</string>
+    <string name="kijelentkez_s">Kijelentkezés</string>
+    <string name="felhaszn_l_adatainak_v_ltoztat_sa">Felhasználó adatainak változtatása</string>
+    <string name="a_felhaszn_l_g_z_r_inak_list_z_sa">A felhasználó gázóráinak listázása</string>
+    <string name="g_z_ra_hozz_ad_sa">Gázóra hozzáadása</string>
+    <string name="g_z_ra_dikt_l_sa">Gázóra diktálása</string>
+    <string name="g_z_ra_ll_s_megtekint_se">Gázóraállás megtekintése</string>
+    <string name="volume_format">m³</string>
+    <string name="a_g_z_ra_ll_sa">A gázóraállása:</string>
+    <string name="_0">0</string>
+    <string name="vissza3">Vissza</string>
+    <string name="utols_dikt_l_s">Utolsó diktálás:</string>
+    <string name="_2023_04_16_12_00_12">2023-04-16 12:00:12</string>
+    <string name="r_gz_tse_ra_ll_s_st">Rögzítse óraállásást!</string>
+    <string name="name2">Az új óraállás</string>
+    <string name="r_gz_t_s">Rögzítés</string>
 </resources>
