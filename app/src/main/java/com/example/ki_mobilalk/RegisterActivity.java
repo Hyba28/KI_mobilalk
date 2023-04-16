@@ -5,21 +5,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
 
-
-import java.util.ArrayList;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -50,8 +44,16 @@ public class RegisterActivity extends AppCompatActivity {
         email = findViewById(R.id.editTextTextEmailAddress);
         pass1 = findViewById(R.id.editTextTextPassword);
         pass2 = findViewById(R.id.editTextPasswordAgain);
+
+
         Button registerButton = findViewById(R.id.registrationButton);
         Button cancelButton = findViewById(R.id.cancel_button);
+
+        Animation fade = AnimationUtils.loadAnimation(this, R.anim.fade_in);
+        cancelButton.startAnimation(fade);
+        Animation rotate = AnimationUtils.loadAnimation(this, R.anim.rotate_in);
+        registerButton.startAnimation(rotate);
+
         cancelButton.setOnClickListener(this::onCancel);
         registerButton.setOnClickListener(this::registerWithEmail);
     }
@@ -72,20 +74,11 @@ public class RegisterActivity extends AppCompatActivity {
                        if(task.isSuccessful()){
                            Log.d(LOG_TAG, "Sikeres regisztacio!");
                            FirebaseUser firebaseUser = mAuth.getCurrentUser();
+                           assert firebaseUser != null;
                            User user = new User(firebaseUser.getUid(),nickName.getText().toString(), realName.getText().toString());
                            userDAO.add(user)
-                                   .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                       @Override
-                                       public void onSuccess(Void aVoid) {
-                                           Log.d(LOG_TAG, "DocumentSnapshot added successfully");
-                                       }
-                                   })
-                                   .addOnFailureListener(new OnFailureListener() {
-                                       @Override
-                                       public void onFailure(@NonNull Exception e) {
-                                           Log.w(LOG_TAG, "Error adding document", e);
-                                       }
-                                   });
+                                   .addOnSuccessListener(aVoid -> Log.d(LOG_TAG, "DocumentSnapshot added successfully"))
+                                   .addOnFailureListener(e -> Log.w(LOG_TAG, "Error adding document", e));
                            notificationHandler.sendNotification("Koszonom a regisztraciot!");
                            Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                            startActivity(intent);

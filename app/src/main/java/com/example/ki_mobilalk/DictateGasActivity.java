@@ -1,5 +1,6 @@
 package com.example.ki_mobilalk;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,7 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -61,7 +62,7 @@ public class DictateGasActivity extends AppCompatActivity {
  // ido beallitas, magatol tortenik
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         userDAO.updateDate(Objects.requireNonNull(mAuth.getCurrentUser()), dateFormat.format(calendar.getTime()), new Callback<Void>() {
             @Override
             public void onSuccess(Void result) {

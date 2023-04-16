@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -38,6 +40,12 @@ public class LoginActivity extends AppCompatActivity {
         password = findViewById(R.id.Password);
         Button login = findViewById(R.id.button2);
         Button cancel = findViewById(R.id.button3);
+
+        Animation fade = AnimationUtils.loadAnimation(this, R.anim.fade_in);
+        login.startAnimation(fade);
+        Animation rotate = AnimationUtils.loadAnimation(this, R.anim.rotate_in);
+        cancel.startAnimation(rotate);
+
         login.setOnClickListener(this::login);
         cancel.setOnClickListener(this::cancel);
 

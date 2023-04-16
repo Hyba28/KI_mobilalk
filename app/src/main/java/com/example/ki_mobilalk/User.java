@@ -1,26 +1,22 @@
 package com.example.ki_mobilalk;
 
+import android.annotation.SuppressLint;
+
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.ArrayList;
+
 import java.util.Calendar;
 
 public class User {
 
-    private  String uid;
+    private final String uid;
     private String nickName;
     private String realName;
 
     private int value;
     private String dictateDate;
 
-    public String getUid() {
-        return uid;
-    }
 
-    public void setUid(String uid) {
-        this.uid = uid;
-    }
+
 
     public int getValue() {
         return value;
@@ -37,7 +33,7 @@ public class User {
     public void setDictateDate() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         this.dictateDate = dateFormat.format(calendar.getTime());
     }
 
@@ -48,7 +44,7 @@ public class User {
         this.value =0;
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         this.dictateDate = dateFormat.format(calendar.getTime());
     }
 

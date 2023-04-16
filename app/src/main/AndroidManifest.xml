@@ -20,9 +20,6 @@
         android:theme="@style/Theme.AppCompat.DayNight"
         >
         <activity
-            android:name=".GasMeterActivity"
-            android:exported="false" />
-        <activity
             android:name=".LoginActivity"
             android:exported="false" />
         <activity

@@ -6,21 +6,14 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -41,29 +34,21 @@ public class UserDAO {
         return db.document(user.getId()).set(user);
     }
 
-    public void add(FirebaseUser firebaseUser, String realName, String nickName, FirestoreCallback firestoreCallback) {
-        User user = new User(firebaseUser.getUid(), nickName, realName);
-        db.document(firebaseUser.getUid()).set(user);
-        firestoreCallback.onCallbackOne(user);
-    }
 
     public void getValue(FirebaseUser user, final Callback<Integer> callback) {
         DocumentReference docRef = db.document(user.getUid());
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        int value = Objects.requireNonNull(document.getLong("value")).intValue();
-                        Log.d(LOG_TAG, "Value: " + value);
-                        callback.onSuccess(value);
-                    } else {
-                        Log.d(LOG_TAG, "No such document");
-                    }
+        docRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    int value = Objects.requireNonNull(document.getLong("value")).intValue();
+                    Log.d(LOG_TAG, "Value: " + value);
+                    callback.onSuccess(value);
                 } else {
-                    Log.d(LOG_TAG, "get failed with ", task.getException());
+                    Log.d(LOG_TAG, "No such document");
                 }
+            } else {
+                Log.d(LOG_TAG, "get failed with ", task.getException());
             }
         });
     }
@@ -104,19 +89,13 @@ public class UserDAO {
                 if (value >= result) {
                     DocumentReference docRef = db.document(user.getUid());
                     docRef.update("value", value)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Log.d(LOG_TAG, "Value updated successfully.");
-                                    callback.onSuccess(null);
-                                }
+                            .addOnSuccessListener(aVoid -> {
+                                Log.d(LOG_TAG, "Value updated successfully.");
+                                callback.onSuccess(null);
                             })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.w(LOG_TAG, "Error updating value", e);
-                                    callback.onFailure(e);
-                                }
+                            .addOnFailureListener(e -> {
+                                Log.w(LOG_TAG, "Error updating value", e);
+                                callback.onFailure(e);
                             });
                 } else {
                     Toast.makeText(context.getApplicationContext(), "A megadott érték kisebb, mint az előző érték! Nem lehet visszatekerni!", Toast.LENGTH_LONG).show();
@@ -134,19 +113,13 @@ public class UserDAO {
         Map<String, Object> updates = new HashMap<>();
         updates.put("dictateDate", date);
         docRef.update(updates)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d(LOG_TAG, "DocumentSnapshot successfully updated!");
-                        callback.onSuccess(null);
-                    }
+                .addOnSuccessListener(aVoid -> {
+                    Log.d(LOG_TAG, "DocumentSnapshot successfully updated!");
+                    callback.onSuccess(null);
                 })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(LOG_TAG, "Error updating document", e);
-                        callback.onFailure(e);
-                    }
+                .addOnFailureListener(e -> {
+                    Log.w(LOG_TAG, "Error updating document", e);
+                    callback.onFailure(e);
                 });
     }
 

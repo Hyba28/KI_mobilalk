@@ -1,6 +1,6 @@
 package com.example.ki_mobilalk;
 
-import android.app.Activity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,21 +16,19 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class ListGasMeterActivity extends AppCompatActivity {
     private static final String LOG_TAG = DictateGasActivity.class.getName();
-    private FirebaseAuth mAuth;
-    private UserDAO userDAO;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listgas);
 
-        mAuth = FirebaseAuth.getInstance();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
         Button button = findViewById(R.id.button5);
         button.setOnClickListener(this::vissza);
         TextView gasText = findViewById(R.id.oraallas);
         TextView dateText = findViewById(R.id.diktalas);
         FirebaseUser user = mAuth.getCurrentUser();
-        userDAO = new UserDAO(this);
+        UserDAO userDAO = new UserDAO(this);
         assert user != null;
         userDAO.getValue(user, new Callback<Integer>() {
             @Override

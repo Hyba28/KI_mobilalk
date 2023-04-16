@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="top|center_horizontal"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="20sp"
+        android:layout_marginBottom="10sp"
+        android:layout_weight="1"
+        android:text="@string/sikeresen_bejelentkezt_l"
+        android:textSize="25sp"
+        />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="10sp"
+        android:layout_weight="1"
+        android:text="@string/valassz"
+        android:textSize="25sp"/>
+
+    <Button
+        android:id="@+id/addGas"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="5sp"
+        android:layout_weight="1"
+        android:text="@string/g_z_ra_dikt_l_sa" />
+
+    <Button
+        android:id="@+id/listGas"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="5sp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="@string/g_z_ra_ll_s_megtekint_se"/>
+
+
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="5sp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="@string/kijelentkez_s" />
+
+    <Button
+        android:id="@+id/delete"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="20sp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="@string/felhaszn_l_t_rl_se" />
+
+
+</LinearLayout>

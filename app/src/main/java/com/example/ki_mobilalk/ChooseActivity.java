@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,6 +35,15 @@ public class ChooseActivity extends AppCompatActivity {
         Button list = findViewById(R.id.listGas);
         Button logout = findViewById(R.id.logout);
         Button delete = findViewById(R.id.delete);
+
+        Animation rotate = AnimationUtils.loadAnimation(this, R.anim.rotate_in);
+        add.startAnimation(rotate);
+        list.startAnimation(rotate);
+        logout.startAnimation(rotate);
+        delete.startAnimation(rotate);
+
+
+
         add.setOnClickListener(this::addGas);
         list.setOnClickListener(this::listGas);
         logout.setOnClickListener(this::logOut);
@@ -45,6 +56,7 @@ public class ChooseActivity extends AppCompatActivity {
 
     private void delete(View view) {
         FirebaseUser user = mAuth.getCurrentUser();
+        assert user != null;
         String uid = user.getUid();
         user.delete()
                 .addOnCompleteListener(task -> {
@@ -67,7 +79,7 @@ public class ChooseActivity extends AppCompatActivity {
 
 
     private void listGas(View view) {
-        FirebaseUser user = mAuth.getCurrentUser();
+
 
         userDAO = new UserDAO(this);
 

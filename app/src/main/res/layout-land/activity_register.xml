@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".RegisterActivity"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <TextView
+        android:id="@+id/registrationText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/regisztracio"
+        android:textSize="40sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/registrationButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="@string/regisztracio"
+        app:layout_constraintBottom_toTopOf="@+id/cancel_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.499"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="DuplicateSpeakableTextCheck" />
+
+    <Button
+        android:id="@+id/cancel_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="@string/vissza"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.499"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="DuplicateSpeakableTextCheck" />
+
+    <EditText
+        android:id="@+id/editTextTextEmailAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:autofillHints="Email-cím"
+        android:ems="10"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toTopOf="@+id/registrationButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonNickname"
+        app:layout_constraintVertical_bias="0.642" />
+
+    <EditText
+        android:id="@+id/editTextTextPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="40dp"
+        android:autofillHints="Jelsző"
+        android:ems="10"
+        android:hint="@string/jelszo"
+        android:inputType="textPassword"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toTopOf="@+id/registrationButton"
+        app:layout_constraintStart_toEndOf="@+id/editTextTextEmailAddress"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonNickname"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <EditText
+        android:id="@+id/editTextPasswordAgain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="44dp"
+        android:layout_marginBottom="16dp"
+        android:autofillHints="Jelsző megerősítése"
+        android:ems="10"
+        android:hint="@string/applypass"
+        android:inputType="textPassword"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toTopOf="@+id/registrationButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/editTextTextPassword"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonNickname"
+        app:layout_constraintVertical_bias="0.75" />
+
+    <EditText
+        android:id="@+id/editTextTextPersonName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="16dp"
+        android:autofillHints="Teljes név"
+        android:ems="10"
+        android:hint="@string/name"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toTopOf="@+id/editTextTextPassword"
+        app:layout_constraintEnd_toStartOf="@+id/editTextTextPersonNickname"
+        app:layout_constraintHorizontal_bias="0.583"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registrationText"
+        app:layout_constraintVertical_bias="0.02" />
+
+    <EditText
+        android:id="@+id/editTextTextPersonNickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="152dp"
+        android:autofillHints="Felhasználónév"
+        android:ems="10"
+        android:hint="@string/username"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registrationText"
+        app:layout_constraintVertical_bias="0.007" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
