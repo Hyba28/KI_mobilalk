@@ -3,6 +3,7 @@ Segítség a kiértékeléshez:
 Készítő: Kovács Imre
 DC: hyba28#5542
 E-mail: hyba28@gmail.com
+Amin teszteltem: Pixel 6 Pro API 33
 
 Pontozási segédlet:
 
